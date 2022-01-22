@@ -1,39 +1,63 @@
 #include <stdio.h>
 
-char resultTime[8] = "00:00";
+int resultHour = 0;
+int resultMin = 0;
 
-int showMenu() {
+void addTime() {
+    int addHour, addMin;
+    
+    printf("# Max hour is 99, Max minutes is 60\n");
+    printf("# Enter the time(HH:MM) : ");
+    scanf("%d:%d", &addHour, &addMin);
+        
+    resultHour += addHour;
+    resultMin += addMin;
+    
+    if (resultMin / 60 > 0) {
+        resultHour += resultMin / 60;
+        resultMin %= 60;
+    }
+    printf("#\n");
+}
+
+void showMenu() {
     int menu;
     
-    printf("# Current Time: %s\n", resultTime);
+    printf("# Current Time: ");
+    printf("");
+    if (resultHour < 10) {
+        printf("0%d:", resultHour);
+    } else {
+        printf("%d:", resultHour);
+    }
+    
+    if (resultMin < 10) {
+        printf("0%d\n", resultMin);
+    } else {
+        printf("%d\n", resultMin);
+    }
     printf("# 1. Add time\n");
     printf("# 2. Subtract time\n");
-    printf("# 3. Get result\n");
     printf("# 0. Exit\n");
     printf("#------------------------------------\n");
     printf("# Enter: ");
     scanf("%d", &menu);
 
-    if (menu < 0 || menu > 3) {
-        while (menu < 0 || menu > 3) {
-            printf("#\n");
-            printf("# Warning - Invalid option\n");
-            printf("# Re-enter: ");
-            scanf("%d", &menu);
+    if (menu < 0 || menu > 2) {
+        printf("#\n");
+        printf("# Warning - Invalid option\n");
+        printf("# Warning - Please re-enter the option\n");
+        printf("#\n");
+        showMenu();
+    } else {
+        if (menu == 1) {
+            addTime();
+            showMenu();
+        } else if (menu == 2) {
+//            subtractTime();
+//            showMenu();
         }
     }
-    
-    if (menu == 0) {
-        return 0;
-    } else if (menu == 1) {
-//        addTime();
-    } else if (menu == 2) {
-//        subtractTime();
-    } else if (menu == 3) {
-//        getResult();
-    }
-    
-    return 0;
 }
 
 int main(int argc, const char * argv[]) {
