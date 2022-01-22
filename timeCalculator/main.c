@@ -93,6 +93,10 @@ void showMenu() {
         } else if (menu == 2) {
             subtractTime();
             showMenu();
+        } else if (menu == 0) {
+            printf("#\n");
+            printf("# Thanks for using time calculator!!\n");
+            printf("#\n");
         }
     }
 }
