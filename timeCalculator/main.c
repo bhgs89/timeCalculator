@@ -6,18 +6,24 @@ int resultMin = 0;
 
 void addTime() {
     int addHour, addMin;
+    int totalResultMins = 0;
+    int totalAddMins = 0;
     
     printf("# Max hour is 99, Max minutes is 60\n");
     printf("# Enter the time(HH:MM) : ");
     scanf("%d:%d", &addHour, &addMin);
         
-    resultHour += addHour;
-    resultMin += addMin;
+    totalAddMins += addMin;
+    totalAddMins += (addHour * 60);
     
-    if (resultMin / 60 > 0) {
-        resultHour += resultMin / 60;
-        resultMin %= 60;
-    }
+    totalResultMins += resultMin;
+    totalResultMins += (resultHour * 60);
+    
+    totalResultMins += totalAddMins;
+    
+    resultHour = totalResultMins / 60;
+    resultMin = totalResultMins % 60;
+    
     printf("#\n");
 }
 
@@ -38,13 +44,8 @@ void subtractTime() {
     
     totalResultMins -= totalSubMins;
     
-    if (totalResultMins < 0) {
-        resultHour = totalResultMins / 60;
-        resultMin = totalResultMins % 60;
-    } else {
-        resultHour = totalResultMins / 60;
-        resultMin = totalResultMins % 60;
-    }
+    resultHour = totalResultMins / 60;
+    resultMin = totalResultMins % 60;
     
     printf("#\n");
 }
