@@ -9,22 +9,36 @@ void addTime() {
     int totalResultMins = 0;
     int totalAddMins = 0;
     
-    printf("# Max hour is 99, Max minutes is 60\n");
+    printf("# Max hour is 99, Max minutes is 59\n");
     printf("# Enter the time(HH:MM) : ");
     scanf("%d:%d", &addHour, &addMin);
         
-    totalAddMins += addMin;
-    totalAddMins += (addHour * 60);
-    
-    totalResultMins += resultMin;
-    totalResultMins += (resultHour * 60);
-    
-    totalResultMins += totalAddMins;
-    
-    resultHour = totalResultMins / 60;
-    resultMin = totalResultMins % 60;
-    
-    printf("#\n");
+    if (addHour > 99) {
+        printf("#\n");
+        printf("# Warning - Maximum hour for adding is 99!!\n");
+        printf("# Warning - Please re-enter the time\n");
+        printf("#\n");
+        addTime();
+    } else if (addMin > 59) {
+        printf("#\n");
+        printf("# Warning - Maximum minutes for adding is 59!!\n");
+        printf("# Warning - Please re-enter the time\n");
+        printf("#\n");
+        addTime();
+    } else {
+        totalAddMins += addMin;
+        totalAddMins += (addHour * 60);
+        
+        totalResultMins += resultMin;
+        totalResultMins += (resultHour * 60);
+        
+        totalResultMins += totalAddMins;
+        
+        resultHour = totalResultMins / 60;
+        resultMin = totalResultMins % 60;
+        
+        printf("#\n");
+    }
 }
 
 void subtractTime() {
@@ -32,22 +46,36 @@ void subtractTime() {
     int totalResultMins = 0;
     int totalSubMins = 0;
     
-    printf("# Max hour is 99, Max minutes is 60\n");
+    printf("# Max hour is 99, Max minutes is 59\n");
     printf("# Enter the time(HH:MM) : ");
     scanf("%d:%d", &subHour, &subMin);
     
-    totalSubMins += subMin;
-    totalSubMins += (subHour * 60);
-    
-    totalResultMins += resultMin;
-    totalResultMins += (resultHour * 60);
-    
-    totalResultMins -= totalSubMins;
-    
-    resultHour = totalResultMins / 60;
-    resultMin = totalResultMins % 60;
-    
-    printf("#\n");
+    if (subHour > 99) {
+        printf("#\n");
+        printf("# Warning - Maximum hour for substracting is 99!!\n");
+        printf("# Warning - Please re-enter the time\n");
+        printf("#\n");
+        subtractTime();
+    } else if (subMin > 59) {
+        printf("#\n");
+        printf("# Warning - Maximum minutes for substracting is 59!!\n");
+        printf("# Warning - Please re-enter the time\n");
+        printf("#\n");
+        subtractTime();
+    } else {
+        totalSubMins += subMin;
+        totalSubMins += (subHour * 60);
+        
+        totalResultMins += resultMin;
+        totalResultMins += (resultHour * 60);
+        
+        totalResultMins -= totalSubMins;
+        
+        resultHour = totalResultMins / 60;
+        resultMin = totalResultMins % 60;
+        
+        printf("#\n");
+    }
 }
 
 void showMenu() {
