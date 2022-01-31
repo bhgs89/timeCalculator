@@ -78,6 +78,10 @@ void subtractTime() {
     }
 }
 
+void getFileResult() {
+    
+}
+
 void showMenu() {
     int menu;
     
@@ -103,12 +107,13 @@ void showMenu() {
     
     printf("# 1. Add time\n");
     printf("# 2. Subtract time\n");
+    printf("# 3. File Calculator\n")
     printf("# 0. Exit\n");
     printf("#------------------------------------\n");
     printf("# Enter: ");
     scanf("%d", &menu);
 
-    if (menu < 0 || menu > 2) {
+    if (menu < 0 || menu > 3) {
         printf("#\n");
         printf("# Warning - Invalid option\n");
         printf("# Warning - Please re-enter the option\n");
@@ -120,6 +125,9 @@ void showMenu() {
             showMenu();
         } else if (menu == 2) {
             subtractTime();
+            showMenu();
+        } else if (menu == 2) {
+            getFileResult();
             showMenu();
         } else if (menu == 0) {
             printf("#\n");
