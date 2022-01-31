@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int resultHour = 0;
 int resultMin = 0;
@@ -79,7 +80,52 @@ void subtractTime() {
 }
 
 void getFileResult() {
+    FILE *fp = NULL;
+    char fpath[256] = "/Users/hangwonsokbaek/Desktop/c_programs/timeCalculator/timeCalculator/";
+    char fname[256];
+    char line[100][256];
+    int index = 0;
     
+    printf("#\n");
+    printf("# Enter file: ");
+    scanf("%s", fname);
+    strcat(fpath, fname);
+    
+    if ((fp = fopen(fpath, "r")) == NULL) {
+        fprintf(stderr, "# Can't open file %s\n", fname);
+        exit(1);
+    }
+
+    
+    while (fgets(line[index], 256, fp) != NULL) {
+        char tempHour[10];
+        char tempMin[10];
+        int convert = 0;
+        int tempHourIdx = 0;
+        int tempMinIdx = 0;
+        
+        for (int i = 0; i < 256; i++) {
+            if (line[index][i] == ':') {
+                convert = 1;
+                continue;
+            } else if (line[index][i] < 48 || line[index][i] > 57) {
+                break;
+            }
+            
+            if (convert == 0) {
+                tempHour[tempHourIdx++] = line[index][i];
+            } else {
+                tempMin[tempMinIdx++] = line[index][i];
+            }
+        }
+        index++;
+//        printf("%s:", tempHour);
+//        printf("%s", tempMin);
+//        printf("\n");
+////        int hour = line[index]
+    }
+
+    fclose(fp);
 }
 
 void showMenu() {
@@ -107,7 +153,7 @@ void showMenu() {
     
     printf("# 1. Add time\n");
     printf("# 2. Subtract time\n");
-    printf("# 3. File Calculator\n")
+    printf("# 3. File Calculator\n");
     printf("# 0. Exit\n");
     printf("#------------------------------------\n");
     printf("# Enter: ");
@@ -126,7 +172,7 @@ void showMenu() {
         } else if (menu == 2) {
             subtractTime();
             showMenu();
-        } else if (menu == 2) {
+        } else if (menu == 3) {
             getFileResult();
             showMenu();
         } else if (menu == 0) {
