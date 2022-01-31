@@ -85,6 +85,8 @@ void getFileResult() {
     char fname[256];
     char line[100][256];
     int index = 0;
+    int totalFileMins = 0;
+    int totalResultMins = 0;
     
     printf("#\n");
     printf("# Enter file: ");
@@ -119,11 +121,20 @@ void getFileResult() {
             }
         }
         index++;
-//        printf("%s:", tempHour);
-//        printf("%s", tempMin);
-//        printf("\n");
-////        int hour = line[index]
+        
+        totalFileMins += atoi(tempMin);
+        totalFileMins += (atoi(tempHour) * 60);
     }
+    
+    totalResultMins += resultMin;
+    totalResultMins += (resultHour * 60);
+    
+    totalResultMins += totalFileMins;
+    
+    resultHour = totalResultMins / 60;
+    resultMin = totalResultMins % 60;
+    
+    printf("#\n");
 
     fclose(fp);
 }
