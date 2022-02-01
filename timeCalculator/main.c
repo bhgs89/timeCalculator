@@ -89,54 +89,67 @@ void getFileResult() {
     int totalResultMins = 0;
     
     printf("#\n");
-    printf("# Enter file: ");
+    printf("# Enter file(Or 0 for main menu): ");
     scanf("%s", fname);
-    strcat(fpath, fname);
     
-    if ((fp = fopen(fpath, "r")) == NULL) {
-        fprintf(stderr, "# Can't open file %s\n", fname);
-        exit(1);
+    int tempIdx = 0;
+    char tempName[256];
+    while (fname[tempIdx] != 0) {
+        tempName[tempIdx] = fname[tempIdx];
+        tempIdx++;
     }
-
-    
-    while (fgets(line[index], 256, fp) != NULL) {
-        char tempHour[10];
-        char tempMin[10];
-        int convert = 0;
-        int tempHourIdx = 0;
-        int tempMinIdx = 0;
+    if (strcmp(tempName, "0") == 0) {
+        printf("#\n");
+        return;
+    } else {
+        strcat(fpath, fname);
         
-        for (int i = 0; i < 256; i++) {
-            if (line[index][i] == ':') {
-                convert = 1;
-                continue;
-            } else if (line[index][i] < 48 || line[index][i] > 57) {
-                break;
-            }
-            
-            if (convert == 0) {
-                tempHour[tempHourIdx++] = line[index][i];
-            } else {
-                tempMin[tempMinIdx++] = line[index][i];
-            }
+        if ((fp = fopen(fpath, "r")) == NULL) {
+            fprintf(stderr, "# Can't open file %s\n", fname);
+            getFileResult();
+            return;
         }
-        index++;
-        
-        totalFileMins += atoi(tempMin);
-        totalFileMins += (atoi(tempHour) * 60);
-    }
-    
-    totalResultMins += resultMin;
-    totalResultMins += (resultHour * 60);
-    
-    totalResultMins += totalFileMins;
-    
-    resultHour = totalResultMins / 60;
-    resultMin = totalResultMins % 60;
-    
-    printf("#\n");
 
-    fclose(fp);
+        
+        while (fgets(line[index], 256, fp) != NULL) {
+            char tempHour[10];
+            char tempMin[10];
+            int convert = 0;
+            int tempHourIdx = 0;
+            int tempMinIdx = 0;
+            
+            for (int i = 0; i < 256; i++) {
+                if (line[index][i] == ':') {
+                    convert = 1;
+                    continue;
+                } else if (line[index][i] < 48 || line[index][i] > 57) {
+                    break;
+                }
+                
+                if (convert == 0) {
+                    tempHour[tempHourIdx++] = line[index][i];
+                } else {
+                    tempMin[tempMinIdx++] = line[index][i];
+                }
+            }
+            index++;
+            
+            totalFileMins += atoi(tempMin);
+            totalFileMins += (atoi(tempHour) * 60);
+        }
+        
+        totalResultMins += resultMin;
+        totalResultMins += (resultHour * 60);
+        
+        totalResultMins += totalFileMins;
+        
+        resultHour = totalResultMins / 60;
+        resultMin = totalResultMins % 60;
+        
+        printf("#\n");
+
+        fclose(fp);
+    }
 }
 
 void showMenu() {
